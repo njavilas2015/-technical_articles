@@ -1,6 +1,10 @@
+IMAGE_NAME_BASE = njavilas/fastapi-app
 IMAGE_NAME = fastapi-app
 CONTAINER_NAME = fastapi-container
 PORT = 8000
+
+build-base:
+	docker build -f Dockerfile.predefine -t $(IMAGE_NAME_BASE) .
 
 build:
 	docker build -t $(IMAGE_NAME) .
@@ -24,3 +28,6 @@ rebuild: stop rm rmi build run
 
 shell:
 	docker exec -it $(CONTAINER_NAME) /bin/sh
+
+publish: 
+	docker push $(IMAGE_NAME)
